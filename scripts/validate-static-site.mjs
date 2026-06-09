@@ -4,6 +4,7 @@ const requiredFiles = ['index.html', 'src/main.js', 'src/styles.css'];
 const requiredMarkup = [
   ['index.html', '<div id="app"></div>'],
   ['index.html', '/src/main.js'],
+  ['index.html', '/src/styles.css'],
   ['src/main.js', '@material/web@2.3.0/all.js/+esm'],
   ['src/main.js', 'https://m3.material.io/develop/web'],
   ['src/main.js', '<md-filled-button'],
@@ -24,6 +25,12 @@ const failures = requiredMarkup
 
 if (failures.length > 0) {
   console.error(failures.join('\n'));
+  process.exit(1);
+}
+
+const mainJs = contents.get('src/main.js');
+if (/import\s+['\"]\.\/styles\.css['\"]/.test(mainJs)) {
+  console.error('src/main.js imports CSS directly, which breaks without a bundler. Link CSS from index.html instead.');
   process.exit(1);
 }
 

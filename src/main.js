@@ -1,5 +1,3 @@
-import './styles.css';
-
 const materialWebUrl = 'https://cdn.jsdelivr.net/npm/@material/web@2.3.0/all.js/+esm';
 
 
